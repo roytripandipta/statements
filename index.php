@@ -14,9 +14,11 @@
 <div class = "container p-5">
   <div class = "row">
   <div class = "col align-items-center">
-      <form action="invoice.php" method="post">
+    <h1>Aspire Fintech Private Limited</h1><br>
     <p><b>Please enter your registered mobile number</b></p>
-    <input type = "text" name="phone_number"  value=""/>
+      <form action="invoice.php" method="post">
+    
+    <input type = "text" name="phone_number"  value="" placeholder="Mobile Number" /><br><br>
 
     <input type="submit" name="my_form_submit_button" 
            value="view pdf"/>
