@@ -9,6 +9,7 @@ require('fpdf17/fpdf.php');
 
 //create pdf object
 $phone_number = $_POST['phone_number'];
+
 $pdf = new FPDF('P','mm','A4');
 //add new page
 $pdf->AddPage();
@@ -24,7 +25,20 @@ $conn = mysqli_connect("13.126.97.63", "tripan", "6r8y7dZs/j", "aspiredb");
 if($conn-> connect_error) {
     die("Connection failed:".$conn-> connect_error);
     }
-$id = "ab2f3e3f-c202-464a-8292-9e3550ebe8ff";
+
+$sql = "select id from user where phone_number = '{$phone_number}' limit 1";
+$res = $conn->query($sql);
+$id = "";
+if($res->num_rows > 0){
+	while($row = $res->fetch_assoc()){
+		$id = $row['id'];
+	}
+}
+else{
+	exit('Phone Number not found');
+}
+
+// $id = "ab2f3e3f-c202-464a-8292-9e3550ebe8ff";
 $sql = "select u.user_name, u.phone_number, uad.address,uad.pin_code from user u,user_address uad where u.id = uad.user_id and u.id = '{$id}' limit 1";
 $result = $conn->query($sql);
 $user_name = "";
@@ -198,7 +212,7 @@ if($result1-> num_rows > 0) {
     while($row = $result1->fetch_assoc()) {
 
         $pdf->Cell(60,8,$row['payment_time'], 1, 0);
-		$pdf->Cell(60,8,$row['amount'], 1, 1);
+		$pdf->Cell(60,8,number_format($row['amount'],2,'.',','), 1, 1);
         
     }
 }
