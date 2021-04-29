@@ -2,6 +2,7 @@
 //call the FPDF library
 
 require('fpdf17/fpdf.php');
+// require(include/fpdf153/fpdf.php)
 
 //A4 width : 219mm
 //default margin : 10mm each side
@@ -9,15 +10,14 @@ require('fpdf17/fpdf.php');
 
 //create pdf object
 $phone_number = $_GET['phone_number'];
-
 $pdf = new FPDF('P','mm','A4');
 //add new page
 $pdf->AddPage();
 $pdf->SetFont('Arial','B',14);
 
 //Cell(width , height , text , border , end line , [align] )
-$pdf->SetFont('Arial','BU',14);
-$pdf->Cell(80 ,5,'Aspire Fintech Private Ltd.',0,0);
+$pdf->SetFont('Arial','BU',15);
+$pdf->Cell(80 ,5,'Aspire Digital Credit Card',0,0);
 $pdf->Cell(59 ,5,'April 2021 Statement',0,1);//end of line
 $pdf->SetFont('Arial','B',11);
 
@@ -54,27 +54,47 @@ $payment_min = 0;
 $payment_max = 0;
 $amount_carry_forward = 0;
 $link = "";
-                    // $handle = fopen('D:/aspire_crons/Billing Automation/february2021_automated_bills.csv', 'r');
-$handle = fopen('bills_to_be_generated.csv', 'r');
-          while(($data = fgetcsv($handle)) !== FALSE) {
-            //   echo $data[1];
-            if($data[0] === $id) {
-                $user_name = $data[1];
-                $sanction_amount = $data[3];
-                $available_limit = $data[4];
-                $due_emi_this_month = $data[5];
-                $monthly_fee = $data[6];
-                $monthly_tax = $data[7];
-                $late_fee = $data[8];
-                $late_tax = $data[9];
-                $DPD = $data[10];
-                $payment_min = $data[11];
-                $payment_max = $data[12];
-                $amount_carry_forward = $data[13];
-                $link = $data[14];
-            }
-          }
-fclose($handle);
+ // $handle = fopen('D:/aspire_crons/Billing Automation/february2021_automated_bills.csv', 'r');
+// $handle = fopen('bills_to_be_generated.csv', 'r');
+//           while(($data = fgetcsv($handle)) !== FALSE) {
+//             //   echo $data[1];
+//             if($data[0] === $id) {
+//                 $user_name = $data[1];
+//                 $sanction_amount = $data[3];
+//                 $available_limit = $data[4];
+//                 $due_emi_this_month = $data[5];
+//                 $monthly_fee = $data[6];
+//                 $monthly_tax = $data[7];
+//                 $late_fee = $data[8];
+//                 $late_tax = $data[9];
+//                 $DPD = $data[10];
+//                 $payment_min = $data[11];
+//                 $payment_max = $data[12];
+//                 $amount_carry_forward = $data[13];
+//                 $link = $data[14];
+//             }
+//           }
+// fclose($handle);
+$sql_2 = "select * from billing_info where user_id = '{$id}'";
+$result2 = $conn->query($sql_2);
+if($result2 -> num_rows > 0) {
+	while($row = $result2->fetch_assoc()) {
+		$user_name = $row["user_name"];
+		$sanction_amount = $row["sanction_amount"];
+		$available_limit = $row["available_limit"];
+		$due_emi_this_month = $row["due_emi_this_month"];
+		$monthly_fee = $row["monthly_fee"];
+		$monthly_tax = $row["monthly_tax"];
+		$late_fee = $row["late_fee"];
+		$late_tax = $row["late_tax"];
+		$DPD = $row["DPD"];
+		$payment_min = $row["payment_min"];
+		$payment_max = $row["payment_max"];
+		$amount_carry_forward = $row["amount_carry_forward"];
+		$link = $row["payment_link"];
+	}
+}
+
 if($result-> num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $pdf->Cell(59 ,10,' ',0,1);//end of line
@@ -82,7 +102,15 @@ if($result-> num_rows > 0) {
 		$pdf->Cell(59 ,5,' ',0,1);//end of line
 		$pdf->SetFont('Arial','B',11);
 		$pdf->Cell(120,5,$row['user_name'],0,0);
-		$pdf->Cell(60,5,'Due Amount: '.$pdf->Image('inr.jpg',$pdf->GetX()+28,$pdf->GetY(), 3, 3).'     '.number_format($payment_min,2,'.',','), 0, 1);
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$pdf->SetXY($x, $y - 5);
+		$pdf->SetFont('Arial','B',15);
+		$pdf->Cell(60,5,'Due Amount: '.$pdf->Image('inr.jpg',$pdf->GetX()+35,$pdf->GetY(), 3, 3).'  '.number_format($payment_min,2,'.',','), 0, 1);
+		$x = $pdf->GetX();
+		$y = $pdf->GetY();
+		$pdf->SetXY($x, $y + 5);
+		$pdf->SetFont('Arial','B',11);
 		$x = $pdf->GetX();
 		$y = $pdf->GetY();
 		$pdf->MultiCell(100,8,$row['address'].' '.$row['pin_code'],0,0);
@@ -163,9 +191,9 @@ $x = $pdf->GetX();
 $y = $pdf->GetY();
 $pdf->Line($x,$y,$x+120, $y);
 $pdf->Cell(59 ,5,' ',0,1);//end of line
-$pdf->Cell(60,8,'Created Time', 1, 0);
-$pdf->Cell(60,8,'Merchant Name', 1, 0);
-$pdf->Cell(60,8,'Amount', 1, 1);
+$pdf->Cell(40,8,'Created Time', 1, 0);
+$pdf->Cell(90,8,'Merchant Name', 1, 0);
+$pdf->Cell(50,8,'Amount', 1, 1);
 
 $sql = "SELECT 
       SUBSTR(m.created_time, 1, 10) as created_time,
@@ -183,12 +211,9 @@ $result1 = $conn->query($sql);
 
 if($result1-> num_rows > 0) {
     while($row = $result1->fetch_assoc()) {
-        $pdf->Cell(60,8,$row['created_time'],1,0);
-        $x = $pdf->GetX();
-		$y = $pdf->GetY();
-        $pdf->MultiCell(60,8,$row['merchant_name'], 1, 0);
-        $pdf->setXY($x+60,$y);
-        $pdf->Cell(60,8,number_format($row['amount'],2,'.',','),1,1);
+        $pdf->Cell(40,8,$row['created_time'],1,0);
+        $pdf->Cell(90,8,substr($row['merchant_name'],0,40), 1, 0);
+        $pdf->Cell(50,8,number_format($row['amount'],2,'.',','),1,1);
   
     }
 }

@@ -14,7 +14,7 @@
 <div class = "container p-5">
   <div class = "row">
   <div class = "col align-items-center">
-    <h1>Aspire Fintech Private Limited</h1><br>
+    <h1>Aspire Digital Credit Card</h1><br>
     <p><b>Please enter your registered mobile number</b></p>
       <form action="invoice.php" method="get">
     
