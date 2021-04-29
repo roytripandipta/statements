@@ -8,7 +8,7 @@ require('fpdf17/fpdf.php');
 //writable horizontal : 219-(10*2)=189mm
 
 //create pdf object
-$phone_number = $_POST['phone_number'];
+$phone_number = $_GET['phone_number'];
 
 $pdf = new FPDF('P','mm','A4');
 //add new page

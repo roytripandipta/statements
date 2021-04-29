@@ -16,7 +16,7 @@
   <div class = "col align-items-center">
     <h1>Aspire Fintech Private Limited</h1><br>
     <p><b>Please enter your registered mobile number</b></p>
-      <form action="invoice.php" method="post">
+      <form action="invoice.php" method="get">
     
     <input type = "text" name="phone_number"  value="" placeholder="Mobile Number" /><br><br>
 
