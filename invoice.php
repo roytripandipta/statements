@@ -16,9 +16,10 @@ $pdf->AddPage();
 $pdf->SetFont('Arial','B',14);
 
 //Cell(width , height , text , border , end line , [align] )
-$pdf->SetFont('Arial','BU',15);
-$pdf->Cell(80 ,5,'Aspire Digital Credit Card',0,0);
-$pdf->Cell(59 ,5,'April 2021 Statement',0,1);//end of line
+$pdf->SetFont('Arial','B',15);
+$pdf->Cell(180 ,5,'Aspire Digital Credit Card',0,1,'C');
+$pdf->Cell(59 ,5,' ',0,1);//end of line
+$pdf->Cell(180 ,5,'April 2021 Statement',0,1,'C');//end of line
 $pdf->SetFont('Arial','B',11);
 
 $conn = mysqli_connect("13.126.97.63", "tripan", "6r8y7dZs/j", "aspiredb");
