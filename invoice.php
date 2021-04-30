@@ -14,12 +14,12 @@ $pdf = new FPDF('P','mm','A4');
 //add new page
 $pdf->AddPage();
 $pdf->SetFont('Arial','B',14);
-
+$pdf->Image('ASPIRE.png',$pdf->GetX(),$pdf->GetY(), 35, 15);
 //Cell(width , height , text , border , end line , [align] )
 $pdf->SetFont('Arial','B',15);
-$pdf->Cell(180 ,5,'Aspire Digital Credit Card',0,1,'C');
+$pdf->Cell(190 ,5,'Aspire Digital Credit Card',0,1,'C');
 $pdf->Cell(59 ,5,' ',0,1);//end of line
-$pdf->Cell(180 ,5,'April 2021 Statement',0,1,'C');//end of line
+$pdf->Cell(190 ,5,'April 2021 Statement',0,1,'C');//end of line
 $pdf->SetFont('Arial','B',11);
 
 $conn = mysqli_connect("13.126.97.63", "tripan", "6r8y7dZs/j", "aspiredb");
@@ -184,7 +184,12 @@ if($result-> num_rows > 0) {
 
 $pdf->Cell(60,8,' ', 0, 1);
 
-$pdf->MultiCell(180,8,'Congratulations! on improving your credit score (all bureaus including CIBIL) with on time payment before or on 8th April.',1,1);
+if($DPD == 0)
+{
+	$pdf->MultiCell(180,8,'Congratulations! on improving your credit score (all bureaus including CIBIL) with on time payment before or on 8th April.',1,1);
+}else {
+	$pdf->MultiCell(180,8,'New year brings new hope! Please pay your dues to make the new year financially happy!',1,1);
+}
 
 $pdf->Cell(60,10,' ', 0, 1);
 $pdf->Cell(60,10,'Transaction History', 0,1);
