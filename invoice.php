@@ -250,15 +250,20 @@ $pdf->Line($x,$y,$x+180, $y);
 $pdf->Cell(60,5,' ', 0, 1);
 $pdf->Cell(80,8,'Aspire Fintech Private Limited', 0, 0);
 $pdf->Cell(80,8,'Our Address', 0, 1);
+
 $pdf->Cell(80,8,'GST: 29AATCA6761C1ZB', 0, 0);
 $y = $pdf->GetY();
 
 $pdf->MultiCell(80,8,'3RD FLOOR, H-0302, SMONDO-3, NEOTOWN ROAD,
 HULIMAMGALA VILLAGE, JIGANI HOBLI,
 Bengaluru, Karnataka, 560099', 0, 1);
+
+$mail = "mailto:contact@letsaspire.in";
+$pdf->Cell(45,8,'Email: contact@letsaspire.in','0','1','',false, $mail);
+$whatsapp = "https://wa.me/918431568414/?text=hii";
+$pdf->Cell(45,8,'Whatsapp: +91 8431568414','0','1','',false, $whatsapp);
 $pdf->SetXY($x, $y+8);
 $pdf->Cell(80,8,'PAN: AATCA6761C', 0, 1);
-
 
 
 //output the result
