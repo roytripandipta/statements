@@ -116,11 +116,11 @@ if($result-> num_rows > 0) {
 		$y = $pdf->GetY();
 		$pdf->MultiCell(100,8,$row['address'].' '.$row['pin_code'],0,0);
 		$pdf->SetXY($x + 120, $y);
-		$pdf->Cell(60,5,'Due Date: 8 Apr 2021', 0, 1);
+		$pdf->Cell(60,5,'Due Date: 8 May 2021', 0, 1);
 		$x = $pdf->GetX();
 		$y = $pdf->GetY();
 		$pdf->SetXY($x + 120, $y);
-		$pdf->MultiCell(60,5,'Late Charges:  300 + GST for payments after 8 Apr 2021',0,1);
+		$pdf->MultiCell(60,5,'Late Charges:  300 + GST for payments after 8 May 2021',0,1);
 		$pdf->Cell(120,10,'Phone: '.$row['phone_number'],0,0);
 		// $link = 'https://stackoverflow.com/questions/54644886/insert-a-url-inside-a-cell-in-fpdf';
 		// $pdf->SetFont('Arial','U',20);
@@ -164,7 +164,7 @@ if($result-> num_rows > 0) {
 
 		$pdf->Cell(59 ,8,' ',0,1);//end of line
 
-		$pdf->Cell(120,5,'Credit Line Standing as on 31st March',0,1);
+		$pdf->Cell(120,5,'Credit Line Standing as on 30th April',0,1);
 		$x = $pdf->GetX();
 		$y = $pdf->GetY();
 		$pdf->Line($x,$y+2,$x+120, $y+2);
@@ -186,7 +186,7 @@ $pdf->Cell(60,8,' ', 0, 1);
 
 if($DPD == 0)
 {
-	$pdf->MultiCell(180,8,'Congratulations! on improving your credit score (all bureaus including CIBIL) with on time payment before or on 8th April.',1,1);
+	$pdf->MultiCell(180,8,'Congratulations! on improving your credit score (all bureaus including CIBIL) with on time payment before or on 8th May.',1,1);
 }else {
 	$pdf->MultiCell(180,8,'New year brings new hope! Please pay your dues to make the new year financially happy!',1,1);
 }
