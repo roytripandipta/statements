@@ -247,7 +247,7 @@ if($result1-> num_rows > 0) {
         
     }
 }
-
+$conn->close();
 $pdf->Cell(60,10,' ', 0, 1);
 $x = $pdf->GetX();
 $y = $pdf->GetY();
