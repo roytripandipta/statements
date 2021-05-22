@@ -114,7 +114,7 @@ if($result-> num_rows > 0) {
 		$pdf->SetFont('Arial','B',11);
 		$x = $pdf->GetX();
 		$y = $pdf->GetY();
-		$pdf->MultiCell(100,8,$row['address'].' '.$row['pin_code'],0,0);
+		$pdf->MultiCell(100,8,trim($row['address']).' '.$row['pin_code'],0,0);
 		$pdf->SetXY($x + 120, $y);
 		$pdf->Cell(60,5,'Due Date: 8 May 2021', 0, 1);
 		$x = $pdf->GetX();
